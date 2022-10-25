@@ -1,8 +1,22 @@
 'use strict';
 
 /*
- * APELLIDO, NOMBRE | APELLIDO, NOMBRE
+ * LOPEZ, AGUSTINA
  */
+
+// CLASE DISCO
+
+class Disco {
+
+    constructor(nombre, autor, codigo, pistas){
+        this.nombre = nombre;  //nombre del disco
+        this.autor = autor; //'nombre del autor del disco';
+        this.codigo = codigo; //0; codigo numérico único del disco(no se puede repetir)
+        this.pistas = pistas = []; // array de pistas
+
+}
+}
+
 
 // Ejemplo de la estructura de un disco:
 // let disco = {
@@ -42,7 +56,43 @@ let discos = [];
 
 // Función Cargar:
 const Cargar = () => {
-    // Cositas:
+    
+    //funcion validar disco 
+    const validarDisco = () => {
+
+        let nombreDisco = prompt("Ingrese el nombre del disco");
+
+        while(nombreDisco.length === 0 ){
+            alert("Nombre incorrecto");
+            nombreDisco = prompt("Ingrese un nombre de disco válido"); 
+        }
+        return nombreDisco;
+    }
+
+    //validar autor
+    const validarAutor = () => {
+
+        let nombreAutor = prompt("Ingrese el nombre del autor o banda");
+        while(nombreAutor.length === 0 ){
+            alert("Nombre incorrecto");
+            nombreAutor = prompt("Ingrese un nombre de autor o banda válido"); 
+        }
+        return nombreAutor;
+    }
+
+    let codigoUnico;
+    
+    //validar codigo
+    const validarCodigo = () => {
+        
+        codigoUnico = parseInt(prompt("Ingrese un código numérico único del disco del 1 al 999"));
+        while(isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999 ||  codigoUnico == codigos){
+            alert("Codigo incorrecto")
+            codigoUnico = parseInt(prompt("Ingrese un código numérico único válido del 1 al 999"));
+        }
+        
+        return codigoUnico; 
+    }
 };
 
 // Función Mostrar:
