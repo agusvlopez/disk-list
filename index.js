@@ -30,15 +30,25 @@ class Disco {
               <li>Código Único: ${codigo}</li></ul>                
           `
   for (let pista of this.pistas){
-      
+
+    if(pista.duracion > 180){
+
+      texto+= `<h3>Pista</h3>
+      <ul>
+      <li>Nombre: ${pista.nombre} </li>
+      <li>Duración: <span>${pista.duracion}</span></li></ul>`
+
+    }else{
+
       texto+= `<h3>Pista</h3>
               <ul>
               <li>Nombre: ${pista.nombre} </li>
-              <li>Duración: ${pista.duracion} </li></ul>`
-  }
-  return texto;
-}
-}
+              <li>Duración: ${pista.duracion}</li></ul>`
+    }; 
+  };
+    return texto;
+ };
+};
 
 // CLASE PISTA
 
@@ -49,42 +59,11 @@ class Pista {
     }
 }
 
-// Ejemplo de la estructura de un disco:
-// let disco = {
-//     Nombre: 'El lado oscuro de la Programación',
-//     Autor: 'Los Programadores Anónimos',
-//     Codigo: 1,
-//     Pistas: [
-//         {
-//             Nombre: 'Esa cajita loca llamada variablecita',
-//             Duracion: 200,
-//         },
-//         {
-//             Nombre: 'Nunca quise ser un NaN',
-//             Duracion: 180,
-//         },
-//         {
-//             Nombre: 'No quiero programar',
-//             Duracion: 90,
-//         },
-//         {
-//             Nombre: 'Bajo presión',
-//             Duracion: 240,
-//         },
-//         {
-//             Nombre: 'La odisea de las variables privadas',
-//             Duracion: 120,
-//         },
-//         {
-//             Nombre: 'Sr. Programador',
-//             Duracion: 720,
-//         },
-//     ],
-// };
 
-// Discos:
+//Variables:
 let discos = [];
 let codigos = [];
+let contadorDiscos;
 
 // Función Cargar:
 const Cargar = () => {
@@ -141,35 +120,34 @@ const Cargar = () => {
         return nombrePista;
     
       }
-
+      
      //duracion pista
       const validarDuracion = () => {
     
         let duracionPista = parseInt(prompt("Ingrese la duración de la pista (entre 0 y 7200 segundos inclusive)"));
-    
-        while ( isNaN(duracionPista) || duracionPista < 0 || duracionPista > 7200) {
-    
+        
+        while (isNaN(duracionPista) || duracionPista < 0 || duracionPista > 7200) {
           alert("Duracion incorrecta");
           duracionPista = parseInt(prompt("Ingrese una duración que no supere los 7200 segundos o sea menor a 0"));
-    
+        
         }
-    
         alert("Nota agregada correctamente");
         return duracionPista;
-    
       }
+      
     // crear nuevo disco
     let nuevoDisco = new Disco();
     nuevoDisco.nombre = validarDisco();
     nuevoDisco.autor = validarAutor();
     nuevoDisco.codigo = validarCodigo();    
 
+
+    let nuevaPista;
     //crear nueva pista 
     const crearPista = () => {
-        let nuevaPista = new Pista();
+        nuevaPista = new Pista();
         nuevaPista.nombre = validarNombrePista();
         nuevaPista.duracion = validarDuracion();
-    
         return nuevaPista;
       }
 
@@ -182,23 +160,27 @@ const Cargar = () => {
 
     //agregar los discos al array discos
     discos.push(nuevoDisco);
-};
-
+    
+   
+    discos.reduce(contadorDiscos = (acc, valor) => {
+      
+      return acc + valor;
+    });
+  }
+  
 // Función Mostrar:
 const Mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
+    html += contadorDiscos(0, discos.length);
 
     // Recorro a los discos:
     for (let disco of discos) {
     // Muestro cada disco:
     html += disco.armar();
-  
-}
-   
-
     
+  }
+ 
     document.getElementById('info').innerHTML = html; 
+
 };
-
-
