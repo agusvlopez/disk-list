@@ -16,6 +16,15 @@ class Disco {
 }
 }
 
+// CLASE PISTA
+
+class Pista {
+    constructor(nombre, duracion){
+        this.nombre = nombre,
+        this.duracion = duracion
+    }
+}
+
 // Ejemplo de la estructura de un disco:
 // let disco = {
 //     Nombre: 'El lado oscuro de la Programación',
