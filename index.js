@@ -13,6 +13,30 @@ class Disco {
         this.autor = autor; //'nombre del autor del disco';
         this.codigo = codigo; //0; codigo numérico único del disco(no se puede repetir)
         this.pistas = pistas = []; // array de pistas
+  }
+
+  // metodo armar 
+  armar() {
+  let texto = '';
+  
+  const titulo = this.nombre;
+  const autor = this.autor;
+  const codigo = this.codigo;
+
+  texto += `  <h2>Disco</h2>
+              <ul>
+              <li>Nombre: ${titulo}</li>
+              <li>Autor o banda: ${autor}</li>
+              <li>Código Único: ${codigo}</li></ul>                
+          `
+  for (let pista of this.pistas){
+      
+      texto+= `<h3>Pista</h3>
+              <ul>
+              <li>Nombre: ${pista.nombre} </li>
+              <li>Duración: ${pista.duracion} </li></ul>`
+  }
+  return texto;
 }
 }
 
@@ -153,6 +177,11 @@ const Cargar = () => {
         nuevoDisco.pistas.push(crearPista());
       } while(confirm("¿Más pistas?"));
 
+    //agregar los codigos al array codigos[]
+    codigos.push(nuevoDisco.codigo);
+    
+    //agregar los discos al array discos
+    discos.push(nuevoDisco);
 };
 
 // Función Mostrar:
