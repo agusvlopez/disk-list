@@ -149,6 +149,10 @@ const Cargar = () => {
         return nuevaPista;
       }
 
+      do {
+        nuevoDisco.pistas.push(crearPista());
+      } while(confirm("¿Más pistas?"));
+
 };
 
 // Función Mostrar:
