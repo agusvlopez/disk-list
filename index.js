@@ -140,6 +140,14 @@ const Cargar = () => {
     nuevoDisco.autor = validarAutor();
     nuevoDisco.codigo = validarCodigo();    
 
+    //crear nueva pista 
+    const crearPista = () => {
+        let nuevaPista = new Pista();
+        nuevaPista.nombre = validarNombrePista();
+        nuevaPista.duracion = validarDuracion();
+    
+        return nuevaPista;
+      }
 
 };
 
