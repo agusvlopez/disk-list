@@ -13,10 +13,8 @@ class Disco {
         this.autor = autor; //'nombre del autor del disco';
         this.codigo = codigo; //0; codigo numérico único del disco(no se puede repetir)
         this.pistas = pistas = []; // array de pistas
-
 }
 }
-
 
 // Ejemplo de la estructura de un disco:
 // let disco = {
@@ -88,11 +86,16 @@ const Cargar = () => {
         codigoUnico = parseInt(prompt("Ingrese un código numérico único del disco del 1 al 999"));
         while(isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999 ||  codigoUnico == codigos){
             alert("Codigo incorrecto")
-            codigoUnico = parseInt(prompt("Ingrese un código numérico único válido del 1 al 999"));
+            codigoUnico = parseInt(prompt("Puede que el codigo ya haya sido ingresado. Ingrese un código numérico único válido del 1 al 999"));
         }
-        
         return codigoUnico; 
     }
+
+    // crear nuevo disco
+    let nuevoDisco = new Disco();
+    nuevoDisco.nombre = validarDisco();
+    nuevoDisco.autor = validarAutor();
+    nuevoDisco.codigo = validarCodigo();    
 };
 
 // Función Mostrar:
