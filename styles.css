@@ -127,6 +127,12 @@
      font-style: italic;
  }
  
+span {
+    font-size: 1em;
+    line-height: 1.5;
+    
+    color: #c41422;
+}
  main button {
      margin: .5em 0;
      border: none;
