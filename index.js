@@ -179,7 +179,7 @@ const Cargar = () => {
 
     //agregar los codigos al array codigos[]
     codigos.push(nuevoDisco.codigo);
-    
+
     //agregar los discos al array discos
     discos.push(nuevoDisco);
 };
@@ -189,10 +189,16 @@ const Mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
 
-    // Cositas:
+    // Recorro a los discos:
+    for (let disco of discos) {
+    // Muestro cada disco:
+    html += disco.armar();
+  
+}
+   
 
-    // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
-    document.getElementById('info').innerHTML = html; // <--- ahí es acá
+    
+    document.getElementById('info').innerHTML = html; 
 };
 
-// Todas las funciones que necesites:
+
