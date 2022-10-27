@@ -23,7 +23,7 @@ class Disco {
   const autor = this.autor;
   const codigo = this.codigo;
 
-  texto += `  <h2>Disco</h2>
+  texto += `  <h3>Disco</h3>
               <ul>
               <li>Nombre: ${titulo}</li>
               <li>Autor o banda: ${autor}</li>
@@ -33,14 +33,14 @@ class Disco {
 
     if(pista.duracion > 180){
 
-      texto+= `<h3>Pista</h3>
+      texto+= `<h4>Pista</h4>
       <ul>
       <li>Nombre: ${pista.nombre} </li>
       <li>Duración: <span>${pista.duracion}</span></li></ul>`
 
     }else{
 
-      texto+= `<h3>Pista</h3>
+      texto+= `<h4>Pista</h4>
               <ul>
               <li>Nombre: ${pista.nombre} </li>
               <li>Duración: ${pista.duracion}</li></ul>`
@@ -172,7 +172,7 @@ const Cargar = () => {
 const Mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
-    html += contadorDiscos(0, discos.length);
+    html += `<p>Cantidad de discos cargados: ${contadorDiscos(0, discos.length)}</p>`;
 
     // Recorro a los discos:
     for (let disco of discos) {
@@ -184,3 +184,4 @@ const Mostrar = () => {
     document.getElementById('info').innerHTML = html; 
 
 };
+
