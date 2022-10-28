@@ -64,6 +64,8 @@ class Pista {
 let discos = [];
 let codigos = [];
 let contadorDiscos;
+let pistas;
+let nuevaPista;
 
 // Función Cargar:
 const Cargar = () => {
@@ -142,7 +144,7 @@ const Cargar = () => {
     nuevoDisco.codigo = validarCodigo();    
 
 
-    let nuevaPista;
+    
     //crear nueva pista 
     const crearPista = () => {
         nuevaPista = new Pista();
@@ -152,7 +154,7 @@ const Cargar = () => {
       }
 
       do {
-        nuevoDisco.pistas.push(crearPista());
+        pistas = nuevoDisco.pistas.push(crearPista());
       } while(confirm("¿Más pistas?"));
 
     //agregar los codigos al array codigos[]
@@ -178,6 +180,8 @@ const Mostrar = () => {
     for (let disco of discos) {
     // Muestro cada disco:
     html += disco.armar();
+    html += `<p>Cantidad de pistas del Disco: ${(pistas++)}</p>`;
+
     
   }
  
