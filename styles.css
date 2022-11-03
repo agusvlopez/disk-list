@@ -33,7 +33,7 @@
  /** Body */
  body {
     
-     color: #FFC600;
+     color: #f0f968;
  }
  
  /** Header */
@@ -141,8 +141,7 @@ span {
      
      padding: 0.5rem;
      border-radius: 0.5rem;
-     color: #fdfdff;
-     background-color: #c41422;
+     
 }
  main button {
      margin: .5em 0;
