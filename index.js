@@ -22,33 +22,28 @@ class Disco {
   const titulo = this.nombre;
   const autor = this.autor;
   const codigo = this.codigo;
-
+  const cantidad = this.pistas;
+  
   texto += `  <h3>Disco</h3>
               <ul>
               <li>Nombre: ${titulo}</li>
               <li>Autor o banda: ${autor}</li>
-              <li>Código Único: ${codigo}</li></ul>                
+              <li>Código Único: ${codigo}</li>
+              <li>Cantidad de pistas: ${cantidad.length}</li>
+              </ul>                
           `
   for (let pista of this.pistas){
-
-    if(pista.duracion > 180){
 
       texto+= `<h4>Pista</h4>
       <ul>
       <li>Nombre: ${pista.nombre} </li>
-      <li>Duración: <span>${pista.duracion}</span></li></ul>`
+      <li>Duración: <span style="color: ${pista.duracion > 180 ? "red" : "#1A4A5E"}">${pista.duracion}</span></li></ul>`
 
-    }else{
-
-      texto+= `<h4>Pista</h4>
-              <ul>
-              <li>Nombre: ${pista.nombre} </li>
-              <li>Duración: ${pista.duracion}</li></ul>`
-    }; 
-  };
     return texto;
- };
+  }
+ }
 };
+
 
 // CLASE PISTA
 
@@ -59,13 +54,15 @@ class Pista {
     }
 }
 
-
 //Variables:
 let discos = [];
 let codigos = [];
 let contadorDiscos;
 let pistas;
+
 let nuevaPista;
+let duracionPista;
+
 
 // Función Cargar:
 const Cargar = () => {
@@ -94,21 +91,26 @@ const Cargar = () => {
     }
 
     let codigoUnico;
-
+    let codigoRepetido;
+    
     //validar codigo
     const validarCodigo = () => {
-        
+
         codigoUnico = parseInt(prompt("Ingrese un código numérico único del disco del 1 al 999"));
-        while(isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999 ||  codigoUnico == codigos){
-            alert("Codigo incorrecto")
-            codigoUnico = parseInt(prompt("Puede que el codigo ya haya sido ingresado. Ingrese un código numérico único válido del 1 al 999"));
+
+        codigoRepetido = codigos.find((c) => c == codigoUnico);
+
+        while (isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999 || codigoRepetido){
+
+          alert("Puede que el codigo ya haya sido ingresado. Ingrese un código numérico único válido del 1 al 999.");
+          validarCodigo();
+
         }
-        return codigoUnico; 
-    }
+
+        return codigoUnico;
+      }
 
     // validar pistas
-
-    // nombre pista
     const validarNombrePista = () => {
 
         let nombrePista = prompt("Ingrese el nombre de la pista");
@@ -126,15 +128,16 @@ const Cargar = () => {
      //duracion pista
       const validarDuracion = () => {
     
-        let duracionPista = parseInt(prompt("Ingrese la duración de la pista (entre 0 y 7200 segundos inclusive)"));
-        
+        duracionPista = parseInt(prompt("Ingrese la duración de la pista (entre 0 y 7200 segundos inclusive)"));
+         
         while (isNaN(duracionPista) || duracionPista < 0 || duracionPista > 7200) {
           alert("Duracion incorrecta");
-          duracionPista = parseInt(prompt("Ingrese una duración que no supere los 7200 segundos o sea menor a 0"));
-        
+          duracionPista = parseInt(prompt("Ingrese una duración que no supere los 7200 segundos o sea menor a 0"));    
+          
         }
         alert("Nota agregada correctamente");
         return duracionPista;
+        
       }
       
     // crear nuevo disco
@@ -143,8 +146,6 @@ const Cargar = () => {
     nuevoDisco.autor = validarAutor();
     nuevoDisco.codigo = validarCodigo();    
 
-
-    
     //crear nueva pista 
     const crearPista = () => {
         nuevaPista = new Pista();
@@ -157,17 +158,20 @@ const Cargar = () => {
         pistas = nuevoDisco.pistas.push(crearPista());
       } while(confirm("¿Más pistas?"));
 
+
     //agregar los codigos al array codigos[]
+
     codigos.push(nuevoDisco.codigo);
+    console.log(codigos);
 
     //agregar los discos al array discos
-    discos.push(nuevoDisco);
+     discos.push(nuevoDisco);
     
-   
-    discos.reduce(contadorDiscos = (acc, valor) => {
+     discos.reduce(contadorDiscos = (acc, valor) => {
       
       return acc + valor;
     });
+
   }
   
 // Función Mostrar:
@@ -180,12 +184,11 @@ const Mostrar = () => {
     for (let disco of discos) {
     // Muestro cada disco:
     html += disco.armar();
-    html += `<p>Cantidad de pistas del Disco: ${(pistas++)}</p>`;
-
-    
   }
- 
+    
     document.getElementById('info').innerHTML = html; 
 
 };
+
+
 
