@@ -37,10 +37,11 @@ class Disco {
       texto+= `<h4>Pista</h4>
       <ul>
       <li>Nombre: ${pista.nombre} </li>
-      <li>Duración: <span style="color: ${pista.duracion > 180 ? "red" : "#1A4A5E"}">${pista.duracion}</span></li></ul>`
+      <li>Duración: <span style="color: ${pista.duracion > 180 ? "red" : "#1A4A5E"}">${pista.duracion}</span></li>
+      </ul>`
 
-    return texto;
   }
+  return texto;
  }
 };
 
@@ -58,10 +59,11 @@ class Pista {
 let discos = [];
 let codigos = [];
 let contadorDiscos;
-let pistas;
 
+let pistas;
 let nuevaPista;
 let duracionPista;
+
 
 
 // Función Cargar:
