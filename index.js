@@ -13,6 +13,8 @@ class Disco {
         this.autor = autor; //'nombre del autor del disco';
         this.codigo = codigo; //0; codigo numérico único del disco(no se puede repetir)
         this.pistas = pistas = []; // array de pistas
+        this.duracionT = 0;
+        this.duracionDiscoM = 0;
   }
 
   // metodo armar 
@@ -23,7 +25,9 @@ class Disco {
   const autor = this.autor;
   const codigo = this.codigo;
   const cantidad = this.pistas;
-  
+  const duracionT = this.duracionT;
+  const duracionM = this.duracionDiscoM;
+
   texto += `  <h3>Disco</h3>
               <ul>
               <li>Nombre: ${titulo}</li>
@@ -32,19 +36,23 @@ class Disco {
               <li>Cantidad de pistas: ${cantidad.length}</li>
               </ul>                
           `
-  for (let pista of this.pistas){
+  texto+= `<p>Duracion total: ${duracionT}</p>
+            <p>Promedio de duración: ${(duracionT/this.pistas.length).toFixed(2)}</p>
+            <p>Duracion mayor del disco: ${duracionM}</p>`
 
+          
+  for (let pista of this.pistas){
+    
       texto+= `<h4>Pista</h4>
       <ul>
       <li>Nombre: ${pista.nombre} </li>
       <li>Duración: <span style="color: ${pista.duracion > 180 ? "red" : "#1A4A5E"}">${pista.duracion}</span></li>
-      </ul>`
-
+      </ul>`    
   }
   return texto;
  }
+ 
 };
-
 
 // CLASE PISTA
 
@@ -52,23 +60,27 @@ class Pista {
     constructor(nombre, duracion){
         this.nombre = nombre,
         this.duracion = duracion
+        
     }
 }
 
 //Variables:
 let discos = [];
-let codigos = [];
 let contadorDiscos;
+
+// Función Cargar:
+const Cargar = () => {
+   
+let codigos = [];
+let duraciones = [];
 
 let pistas;
 let nuevaPista;
 let duracionPista;
 
+let duracionMayor;
+let duracionTotal = 0;
 
-
-// Función Cargar:
-const Cargar = () => {
-    
     //funcion validar disco 
     const validarDisco = () => {
 
@@ -126,56 +138,77 @@ const Cargar = () => {
         return nombrePista;
     
       }
-      
+
+       
      //duracion pista
       const validarDuracion = () => {
     
         duracionPista = parseInt(prompt("Ingrese la duración de la pista (entre 0 y 7200 segundos inclusive)"));
-         
+
+        
         while (isNaN(duracionPista) || duracionPista < 0 || duracionPista > 7200) {
           alert("Duracion incorrecta");
           duracionPista = parseInt(prompt("Ingrese una duración que no supere los 7200 segundos o sea menor a 0"));    
           
         }
-        alert("Nota agregada correctamente");
+        alert("Pista agregada correctamente");
+
+        duracionTotal += duracionPista;
+
+        duraciones.push(duracionPista)
+        let ordenar = duraciones.sort((a, b) =>  b - a);
+        duracionMayor = ordenar.slice(0,1)
+        
+    
         return duracionPista;
         
       }
       
+      const validarDuracionTotal = () => {
+
+        return duracionTotal;
+    }
+
+      const validarDuracionMayor = () => {
+      return duracionMayor;
+    }
+
     // crear nuevo disco
     let nuevoDisco = new Disco();
     nuevoDisco.nombre = validarDisco();
     nuevoDisco.autor = validarAutor();
     nuevoDisco.codigo = validarCodigo();    
+   
 
     //crear nueva pista 
     const crearPista = () => {
         nuevaPista = new Pista();
         nuevaPista.nombre = validarNombrePista();
         nuevaPista.duracion = validarDuracion();
+        
         return nuevaPista;
       }
 
       do {
         pistas = nuevoDisco.pistas.push(crearPista());
+        
       } while(confirm("¿Más pistas?"));
-
-
+      
+    nuevoDisco.duracionT = validarDuracionTotal();
+    nuevoDisco.duracionDiscoM = validarDuracionMayor();
+    
     //agregar los codigos al array codigos[]
-
     codigos.push(nuevoDisco.codigo);
-    console.log(codigos);
-
+    
     //agregar los discos al array discos
      discos.push(nuevoDisco);
     
      discos.reduce(contadorDiscos = (acc, valor) => {
-      
       return acc + valor;
     });
+    
+}
 
-  }
-  
 // Función Mostrar:
 const Mostrar = () => {
     // Variable para ir armando la cadena:
@@ -185,12 +218,21 @@ const Mostrar = () => {
     // Recorro a los discos:
     for (let disco of discos) {
     // Muestro cada disco:
-    html += disco.armar();
-  }
     
+    html += disco.armar();
+    }
+  
     document.getElementById('info').innerHTML = html; 
 
 };
 
+// Informen por cada disco:
+// La cantidad de pistas que tiene cada disco.x
+// La duración total del disco.x
+// El promedio de duración de cada disco.x
+// La pista con mayor duración de cada disco.x
 
+// Que destaquen la duración total más alta entre todos los discos.
+// Que se pueda mostrar la información de un disco específico mediante su código numérico.
+// Formateen toda la muestra de datos con código HTML + CSS.
 
