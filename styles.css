@@ -111,8 +111,9 @@
      font-size: 2rem;
      line-height: 1.5;
      text-align: left;
-     color: #180A0A;
+     color: #424642;
      background-color: #fdfdff;
+     border-radius: 0.5rem;
  }
  
  main ul {
@@ -143,6 +144,7 @@ span {
      border-radius: 0.5rem;
      
 }
+
  main button {
      margin: .5em 0;
      border: none;
