@@ -34,11 +34,11 @@ class Disco {
               <li>Autor o banda: ${autor}</li>
               <li>Código Único: ${codigo}</li>
               <li>Cantidad de pistas: ${cantidad.length}</li>
-              </ul>                
-          `
+              </ul>`                
+          
   texto+= `<p>Duracion total: ${duracionT}</p>
             <p>Promedio de duración: ${(duracionT/this.pistas.length).toFixed(2)}</p>
-            <p>Duracion mayor del disco: ${duracionM}</p>`
+            <p>Pista con mayor duracion del disco: ${duracionM}</p>`
 
           
   for (let pista of this.pistas){
@@ -47,7 +47,8 @@ class Disco {
       <ul>
       <li>Nombre: ${pista.nombre} </li>
       <li>Duración: <span style="color: ${pista.duracion > 180 ? "red" : "#1A4A5E"}">${pista.duracion}</span></li>
-      </ul>`    
+      </ul>`  
+        
   }
   return texto;
  }
@@ -60,31 +61,33 @@ class Pista {
     constructor(nombre, duracion){
         this.nombre = nombre,
         this.duracion = duracion
-        
     }
 }
 
 //Variables:
 let discos = [];
 let contadorDiscos;
+let codigos = [];
 
 // Función Cargar:
 const Cargar = () => {
    
-let codigos = [];
 let duraciones = [];
+let nombreDisco;
 
 let pistas;
 let nuevaPista;
 let duracionPista;
 
-let duracionMayor;
 let duracionTotal = 0;
+let duracionMayor;
+let ordenar = 0;
+
 
     //funcion validar disco 
     const validarDisco = () => {
 
-        let nombreDisco = prompt("Ingrese el nombre del disco");
+        nombreDisco = prompt("Ingrese el nombre del disco");
 
         while(nombreDisco.length === 0 ){
             alert("Nombre incorrecto");
@@ -106,24 +109,24 @@ let duracionTotal = 0;
 
     let codigoUnico;
     let codigoRepetido;
-    
+   
     //validar codigo
     const validarCodigo = () => {
 
         codigoUnico = parseInt(prompt("Ingrese un código numérico único del disco del 1 al 999"));
-
+       
         codigoRepetido = codigos.find((c) => c == codigoUnico);
-
+       
         while (isNaN(codigoUnico) || codigoUnico < 1 || codigoUnico > 999 || codigoRepetido){
 
           alert("Puede que el codigo ya haya sido ingresado. Ingrese un código numérico único válido del 1 al 999.");
+
           validarCodigo();
 
         }
-
         return codigoUnico;
       }
-
+     
     // validar pistas
     const validarNombrePista = () => {
 
@@ -136,10 +139,8 @@ let duracionTotal = 0;
     
         }
         return nombrePista;
-    
       }
 
-       
      //duracion pista
       const validarDuracion = () => {
     
@@ -155,17 +156,15 @@ let duracionTotal = 0;
 
         duracionTotal += duracionPista;
 
-        duraciones.push(duracionPista)
-        let ordenar = duraciones.sort((a, b) =>  b - a);
-        duracionMayor = ordenar.slice(0,1)
-        
-    
+        duraciones.push(duracionPista);
+        ordenar = duraciones.sort((a, b) =>  b - a);
+        duracionMayor = ordenar.slice(0,1);
+
         return duracionPista;
-        
       }
+
       
       const validarDuracionTotal = () => {
-
         return duracionTotal;
     }
 
@@ -173,19 +172,19 @@ let duracionTotal = 0;
       return duracionMayor;
     }
 
+ 
     // crear nuevo disco
     let nuevoDisco = new Disco();
     nuevoDisco.nombre = validarDisco();
     nuevoDisco.autor = validarAutor();
     nuevoDisco.codigo = validarCodigo();    
-   
 
+ 
     //crear nueva pista 
     const crearPista = () => {
         nuevaPista = new Pista();
         nuevaPista.nombre = validarNombrePista();
         nuevaPista.duracion = validarDuracion();
-        
         return nuevaPista;
       }
 
@@ -196,14 +195,15 @@ let duracionTotal = 0;
       
     nuevoDisco.duracionT = validarDuracionTotal();
     nuevoDisco.duracionDiscoM = validarDuracionMayor();
+   
     
     //agregar los codigos al array codigos[]
     codigos.push(nuevoDisco.codigo);
     
     //agregar los discos al array discos
-     discos.push(nuevoDisco);
+    discos.push(nuevoDisco);
     
-     discos.reduce(contadorDiscos = (acc, valor) => {
+    discos.reduce(contadorDiscos = (acc, valor) => {
       return acc + valor;
     });
     
@@ -214,25 +214,12 @@ const Mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
     html += `<p>Cantidad de discos cargados: ${contadorDiscos(0, discos.length)}</p>`;
-
-    // Recorro a los discos:
-    for (let disco of discos) {
-    // Muestro cada disco:
     
+    for (let disco of discos) {
     html += disco.armar();
     }
   
     document.getElementById('info').innerHTML = html; 
 
 };
-
-// Informen por cada disco:
-// La cantidad de pistas que tiene cada disco.x
-// La duración total del disco.x
-// El promedio de duración de cada disco.x
-// La pista con mayor duración de cada disco.x
-
-// Que destaquen la duración total más alta entre todos los discos.
-// Que se pueda mostrar la información de un disco específico mediante su código numérico.
-// Formateen toda la muestra de datos con código HTML + CSS.
 
