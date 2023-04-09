@@ -197,6 +197,10 @@ span {
      color: #a2c4c9;
  }
  
+ .mail {
+    color: #f3f3f3;
+ }
+ 
  /** Overs */
  main button:hover {
      opacity: .8;
